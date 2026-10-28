@@ -234,3 +234,7 @@ TEXT = {
     ],
 },
 }
+
+# Added for the animated home page.
+for _lang, _extra in {'en': {'scroll_hint': 'Scroll to walk', 'unit': 'steps', 'letter_line': "If you're reading this, you made it.", 'sound_on': 'Sound on', 'sound_off': 'Sound off', 'price_title': 'One purchase. No subscription.', 'store_note': 'Coming to the App Store.', 'screen_alt': ['Writing a capsule', 'Sealing animation', 'A sealed capsule at 29%', 'Breaking the seal', 'The opened letter']}, 'ko': {'scroll_hint': '스크롤해서 걸어 보세요', 'unit': '걸음', 'letter_line': '이걸 읽고 있다면, 해낸 거야.', 'sound_on': '소리 켜기', 'sound_off': '소리 끄기', 'price_title': '구독 없이, 한 번만.', 'store_note': 'App Store 출시 예정', 'screen_alt': ['캡슐 쓰기 화면', '봉인 애니메이션', '29% 녹은 봉인 중 캡슐', '봉인 풀기', '열어 본 편지']}, 'ja': {'scroll_hint': 'スクロールして歩いてみて', 'unit': '歩', 'letter_line': 'これを読んでいるなら、やり遂げたんだね。', 'sound_on': '音をオン', 'sound_off': '音をオフ', 'price_title': 'サブスクなし、一度だけ。', 'store_note': 'App Storeで近日公開。', 'screen_alt': ['カプセルを書く画面', '封印のアニメーション', '29%溶けた封印中のカプセル', '封印を解く', '開いた手紙']}, 'zh-Hans': {'scroll_hint': '向下滚动，走起来', 'unit': '步', 'letter_line': '如果你正在读这封信，说明你做到了。', 'sound_on': '打开声音', 'sound_off': '关闭声音', 'price_title': '无需订阅，只付一次。', 'store_note': '即将登陆 App Store。', 'screen_alt': ['写胶囊', '封存动画', '融化 29% 的封存中胶囊', '解开封印', '打开的信']}, 'zh-Hant': {'scroll_hint': '向下捲動，走起來', 'unit': '步', 'letter_line': '如果你正在讀這封信，代表你做到了。', 'sound_on': '開啟聲音', 'sound_off': '關閉聲音', 'price_title': '無需訂閱，只付一次。', 'store_note': '即將在 App Store 上架。', 'screen_alt': ['寫膠囊', '封存動畫', '融化 29% 的封存中膠囊', '解開封印', '打開的信']}}.items():
+    TEXT[_lang].update(_extra)

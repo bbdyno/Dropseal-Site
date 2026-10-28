@@ -50,8 +50,9 @@ def head(lang, page, title, desc):
 <link rel="alternate" hreflang="x-default" href="{url('en', page)}">
 <link rel="icon" href="{up}seal.svg" type="image/svg+xml">
 <link rel="stylesheet" href="{up}style.css">
+<script src="{up}site.js" defer></script>
 </head>
-<body><main>
+<body class="page-{page}"><main>
 <header class="top">
 <a class="brand" href="{page_file('index')}">{icon('seal-fill')}Dropseal</a>
 <nav><a href="privacy.html">{t['nav_privacy']}</a><a href="support.html">{t['nav_support']}</a><a href="#languages">{NAMES[lang]}</a></nav>
@@ -75,32 +76,84 @@ def foot(lang, page):
 """
 
 
+UNITS = {"en": ["steps", "kcal", "min", "km"], "ko": ["걸음", "kcal", "분", "km"], "ja": ["歩", "kcal", "分", "km"],
+         "zh-Hans": ["步", "千卡", "分钟", "公里"], "zh-Hant": ["步", "大卡", "分鐘", "公里"]}
+GOALS = [50000, 3000, 300, 100]
+
+
 def index(lang):
     t = TEXT[lang]
+    up = "" if lang == "en" else "../"
+    media = f"{up}media/{lang}"
     steps = "\n".join(
-        f'<li><span class="n">{i}</span><div><h3>{title}</h3><p>{body}</p></div></li>'
+        f'<article class="story-step"><span class="n">{i}</span><h3>{title}</h3><p>{body}</p></article>'
         for i, (title, body) in enumerate(t["steps"], start=1))
+    alt = t["screen_alt"]
+    screens = "\n".join([
+        f'<img class="screen" src="{media}/5-compose.jpg" alt="{alt[0]}" loading="lazy">',
+        f'<video class="screen" src="{media}/sealing.mp4" poster="{media}/sealing.jpg" muted playsinline preload="metadata" aria-label="{alt[1]}"></video>',
+        f'<img class="screen" src="{media}/2-sealed.jpg" alt="{alt[2]}" loading="lazy">',
+        f'<video class="screen" src="{media}/unsealing.mp4" poster="{media}/unsealing.jpg" muted playsinline preload="metadata" aria-label="{alt[3]}"></video>',
+    ])
     glyphs = ["sneaker-move", "flame", "timer", "path"]
     metrics = "\n".join(
-        f"<div>{icon(g)}<strong>{name}</strong><span>{note}</span></div>"
-        for g, (name, note) in zip(glyphs, t["metrics"]))
+        f'<div>{icon(g)}<strong>{name}</strong><p class="figure"><span data-count="{goal}">{goal:,}</span> {unit}</p><span>{note}</span></div>'
+        for g, (name, note), goal, unit in zip(glyphs, t["metrics"], GOALS, UNITS[lang]))
     local = t["local_text"].replace("{privacy}", f'<a href="privacy.html">{t["privacy_link"]}</a>')
-    return f"""<h1>{t['h1']}</h1>
+    return f"""</main>
+<section class="hero">
+<div class="hero-stage">
+<div class="hero-copy">
+<h1>{t['h1']}</h1>
 <p class="lede">{t['lede']}</p>
+<p class="hint">{t['scroll_hint']} <span aria-hidden="true">↓</span></p>
+</div>
+<figure class="hero-figure">
+<svg class="hero-seal" role="img" aria-label="Dropseal"></svg>
+<p class="hero-meter"><span class="hero-count" data-goal="50000">0</span><span class="of"> / 50,000 {t['unit']}</span></p>
+<blockquote class="hero-letter">{t['letter_line']}</blockquote>
+</figure>
+</div>
+</section>
 
-<h2>{t['how']}</h2>
-<ol class="steps">
+<section class="story">
+<div class="wrap">
+<h2 class="reveal">{t['how']}</h2>
+<div class="story-grid">
+<div class="story-steps">
 {steps}
-</ol>
+</div>
+<div class="phone-col">
+<div class="phone">
+{screens}
+</div>
+<button class="sound-toggle" type="button" aria-pressed="false" data-on="{t['sound_on']}" data-off="{t['sound_off']}">{t['sound_on']}</button>
+</div>
+</div>
+</div>
+</section>
 
+<main>
+<section class="reveal">
 <h2>{t['goals']}</h2>
 <div class="metrics">
 {metrics}
 </div>
+</section>
 
+<section class="reveal">
 <h2>{t['local']}</h2>
-<p class="muted">{local}</p>
-<p class="note">{t['soon']}</p>
+<p class="muted big">{local}</p>
+</section>
+
+<section class="price reveal">
+<svg class="seal-static" data-progress="0.12" aria-hidden="true"></svg>
+<div>
+<h2>{t['price_title']}</h2>
+<p class="muted">{t['soon']}</p>
+<p class="note">{t['store_note']}</p>
+</div>
+</section>
 """
 
 
