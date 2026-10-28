@@ -1,12 +1,12 @@
 /* Colors: Radix Colors 3.0.0 sand + ruby (MIT). Steps 1–2 backgrounds, 6–7 borders, 11–12 text. */
 :root {
-  --canvas:#fdfdfc; --surface:#f9f9f8; --hairline:#dad9d6; --text:#21201c; --muted:#63635e; --faint:#8d8d86;
+  --canvas:#f3f0ea; --surface:#fbf8f2; --hairline:#dad9d6; --text:#21201c; --muted:#63635e; --faint:#8d8d86;
   --wax:#ca244d; --wax-deep:#64172b; --wax-subtle:#feeaed;
-  --seal:#ca244d; --seal-shade:#64172b;
+  --seal:#9a1a35; --seal-shade:#4a0d1f;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --canvas:#111110; --surface:#191918; --hairline:#3b3a37; --text:#eeeeec; --muted:#b5b3ad; --faint:#6f6d66;
-    --wax:#ff949d; --wax-deep:#fed2e1; --wax-subtle:#3a141e; --seal:#e54666; --seal-shade:#4e1325; }
+  :root { --canvas:#151412; --surface:#22201c; --hairline:#3b3a37; --text:#eeeeec; --muted:#b5b3ad; --faint:#6f6d66;
+    --wax:#ff949d; --wax-deep:#fed2e1; --wax-subtle:#3a141e; --seal:#b81f40; --seal-shade:#3a0a18; }
 }
 @font-face { font-family:"Pretendard"; font-weight:400; font-display:swap; src:url(fonts/Pretendard-Regular.subset.woff2) format("woff2"); }
 @font-face { font-family:"Pretendard"; font-weight:600; font-display:swap; src:url(fonts/Pretendard-SemiBold.subset.woff2) format("woff2"); }
@@ -26,7 +26,7 @@ a { color:var(--wax); text-underline-offset:3px; }
 
 .top { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px 16px; padding-bottom:16px; border-bottom:1px solid var(--hairline); }
 .brand { display:flex; align-items:center; gap:8px; color:var(--text); text-decoration:none; font-weight:600; }
-.brand svg { width:22px; height:22px; color:var(--wax); }
+.brand img { width:26px; height:26px; border-radius:6px; }
 .top nav { display:flex; gap:16px; font-size:15px; }
 .top nav a { color:var(--muted); text-decoration:none; white-space:nowrap; }
 .top nav a:hover { color:var(--text); }

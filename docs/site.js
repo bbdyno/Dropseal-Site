@@ -71,6 +71,19 @@
       cp.appendChild(el("polygon", { points: pts.map((p) => p.join(",")).join(" ") }));
       defs.appendChild(cp);
     }
+    // Light the wax like the app icon: a soft bevel from the shape's own alpha, gloss from the
+    // top left, and a contact shadow on the paper.
+    const lit = el("filter", { id: `wax-${size}`, x: "-25%", y: "-20%", width: "150%", height: "160%", "color-interpolation-filters": "sRGB" });
+    lit.innerHTML =
+      `<feGaussianBlur in="SourceAlpha" stdDeviation="${size * 0.018}" result="b"/>` +
+      `<feSpecularLighting in="b" surfaceScale="${size * 0.02}" specularConstant="0.75" specularExponent="22" lighting-color="#fff" result="s"><feDistantLight azimuth="225" elevation="48"/></feSpecularLighting>` +
+      `<feComposite in="s" in2="SourceAlpha" operator="in" result="sIn"/>` +
+      `<feDiffuseLighting in="b" surfaceScale="${size * 0.02}" diffuseConstant="1.15" lighting-color="#fff" result="d"><feDistantLight azimuth="225" elevation="60"/></feDiffuseLighting>` +
+      `<feComposite in="SourceGraphic" in2="d" operator="arithmetic" k1="1" k2="0" k3="0" k4="0" result="lit"/>` +
+      `<feComposite in="sIn" in2="lit" operator="arithmetic" k1="0" k2="0.45" k3="1" k4="0" result="glossy"/>` +
+      `<feDropShadow dx="${size * 0.01}" dy="${size * 0.03}" stdDeviation="${size * 0.025}" flood-color="#000" flood-opacity="0.22"/>`;
+    defs.appendChild(lit);
+    halves.forEach((g) => g.setAttribute("filter", `url(#wax-${size})`));
     svg.prepend(defs);
 
     const parts = halves.map((g) => {

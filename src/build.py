@@ -48,13 +48,14 @@ def head(lang, page, title, desc):
 <meta name="color-scheme" content="light dark">
 {alternates}
 <link rel="alternate" hreflang="x-default" href="{url('en', page)}">
-<link rel="icon" href="{up}seal.svg" type="image/svg+xml">
+<link rel="icon" href="{up}icon.png" type="image/png">
+<link rel="apple-touch-icon" href="{up}icon.png">
 <link rel="stylesheet" href="{up}style.css">
 <script src="{up}site.js" defer></script>
 </head>
 <body class="page-{page}"><main>
 <header class="top">
-<a class="brand" href="{page_file('index')}">{icon('seal-fill')}Dropseal</a>
+<a class="brand" href="{page_file('index')}"><img src="{up}icon.png" alt="">Dropseal</a>
 <nav><a href="privacy.html">{t['nav_privacy']}</a><a href="support.html">{t['nav_support']}</a><a href="#languages">{NAMES[lang]}</a></nav>
 </header>
 """
